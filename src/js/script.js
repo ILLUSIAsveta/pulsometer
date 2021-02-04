@@ -62,11 +62,119 @@ $(document).ready(function(){
       $('.overflay, #order').fadeIn('slow')
     });
 
-   
+      // Добавление имени товара в модальное окно
     $('.button_mini').each(function(i) {
       $(this).on('click', function() {
           $('#order .modal__subheading').text($('.catalog-item__subtitle').eq(i).text());
           $('.overflay, #order').fadeIn('slow');
       });
   });
+
   });
+
+  //Валидация форм на JS
+    $("#consultation-form").validate({
+      rules: {
+        name: {
+          required: true,
+          minlength: 2
+        },
+        phone: "required",
+  
+        email: {
+          required: true,
+          email: true
+        }
+      },
+      messages: {
+        name: {
+          required: "Введите наше имя*",
+          minlength: jQuery.validator.format("Введите минимум {0} символа!")
+        },
+        
+        phone: "Введите ваш номер телефона*",
+        email: {
+          required: "Введите адрес электронной почты*",
+          email: "Ваш адрес электронной почты должен быть в формате name@domain.com"
+        }
+      }
+      
+    });
+
+    $("#order-form").validate({
+      rules: {
+        name: {
+          required: true,
+          minlength: 2
+        },
+        phone: "required",
+  
+        email: {
+          required: true,
+          email: true
+        }
+      },
+  
+      messages: {
+        name: {
+          required: "Введите наше имя*",
+          minlength: jQuery.validator.format("Введите минимум {0} символа!")
+        },
+        
+        phone: "Введите ваш номер телефона*",
+        email: {
+          required: "Введите адрес электронной почты*",
+          email: "Ваш адрес электронной почты должен быть в формате name@domain.com"
+        }
+      }
+    });
+
+    $("#myform").validate({
+      rules: {
+        name: {
+          required: true,
+          minlength: 2
+        },
+        phone: "required",
+  
+        email: {
+          required: true,
+          email: true
+        }
+      },
+  
+      messages: {
+        name: {
+          required: "Введите наше имя*",
+          minlength: jQuery.validator.format("Введите минимум {0} символа!")
+        },
+        
+        phone: "Введите ваш номер телефона*",
+        email: {
+          required: "Введите адрес электронной почты*",
+          email: "Ваш адрес электронной почты должен быть в формате name@domain.com"
+        }
+      }
+    });
+
+     
+   
+
+
+  
+
+ 
+
+
+
+  
+  
+  
+ 
+
+  
+ 
+
+  
+   
+  
