@@ -13,13 +13,42 @@ $(document).ready(function(){
             {
               breakpoint: 1024,
               settings: {
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                infinite: true,
+                arrows:false,
+                slidesToShow: 2,
+                slideToScroll: 1,
                 dots: true,
-                arrows:true,
+                infinite: true,
+                speed: 1200,
+                autoplay: true,
               }
             },
+            {
+              breakpoint: 767,
+              settings: {
+                speed: 1200,
+                autoplay: true,
+                arrows:false,
+                slidesToShow: 2,
+                slideToScroll: 1,
+                autoplay: true,
+                speed: 1200,
+                
+              }
+            },
+            {
+              breakpoint: 480,
+              settings: {
+                speed: 1200,
+                autoplay: true,
+                arrows:false,
+                slidesToShow: 2,
+                slideToScroll: 1,
+                autoplay: true,
+                speed: 1200,
+                
+              }
+            },
+            
         ]
         
     });
@@ -69,94 +98,85 @@ $(document).ready(function(){
           $('.overflay, #order').fadeIn('slow');
       });
   });
-  
+  // Маска ввода телефона
   $('input[name=phone]').mask("+7 (999) 999-99-99");
+
+  // Валидация форм на JS
+  function validateForms (form) {
+    $(form).validate({
+      rules: {
+        name: {
+          required: true,
+          minlength:2,
+        },
+        phone: "required",
+        email: {
+          required: true,
+          email: true
+        }
+      },
+      messages: {
+        name: {
+          required: "Пожалуйста, введите наше имя*",
+          minlength: jQuery.validator.format("Введите минимум {0} символа!")
+        },
+        phone: "Пожалуйста, введите ваш номер телефона*",
+        email: {
+          required: "Пожалуйста, введите адрес почтового ящика*",
+          email: "Адрес почтового ящика введен неверно"
+        }
+      }
+    });
+  };
+
+  validateForms('#order-form');
+  validateForms('#consultation-form');
+  validateForms('#myform');
+
+
+///////////////////////// Отправка формы
+$('form').submit(function(e) {
+  e.preventDefault();
+  $.ajax({
+    type: "POST",
+    url: "mailer/smart.php",
+    data: $(this).serialize()
+  }).done(function() {
+    $(this).find("input").val("");
+    $('#consultation, #order').fadeOut();
+    $('.overflay, #thanks').fadeIn('slow');
+
+
+    $('form').trigger('reset');
+  });
+  return false;
+});
+
+
+     ///// Scroll//////
+  $(window).scroll(function(){
+
+    if ($(this).scrollTop() > 600){
+      $('.scrollUp').fadeIn();
+    }
+    else{
+      $('.scrollUp').fadeOut();
+    }
+
   });
 
-  //Валидация форм на JS
-    $("#consultation-form").validate({
-      rules: {
-        name: {
-          required: true,
-          minlength: 2
-        },
-        phone: "required",
-  
-        email: {
-          required: true,
-          email: true
-        }
-      },
-      messages: {
-        name: {
-          required: "Введите наше имя*",
-          minlength: jQuery.validator.format("Введите минимум {0} символа!")
-        },
-        
-        phone: "Введите ваш номер телефона*",
-        email: {
-          required: "Введите адрес электронной почты*",
-          email: "Ваш адрес электронной почты должен быть в формате name@domain.com"
-        }
-      }
-      
-    });
+  $("a[href^='#']").click(function(){
+      const _href = $(this).attr("href");
+    $("html, body").animate({scrollTop: $(_href).offset().top+"px"});
+    return false;
+  });
+  new WOW().init();
+});
 
-    $("#order-form").validate({
-      rules: {
-        name: {
-          required: true,
-          minlength: 2
-        },
-        phone: "required",
-  
-        email: {
-          required: true,
-          email: true
-        }
-      },
-  
-      messages: {
-        name: {
-          required: "Введите наше имя*",
-          minlength: jQuery.validator.format("Введите минимум {0} символа!")
-        },
-        
-        phone: "Введите ваш номер телефона*",
-        email: {
-          required: "Введите адрес электронной почты*",
-          email: "Ваш адрес электронной почты должен быть в формате name@domain.com"
-        }
-      }
-    });
 
-    $("#myform").validate({
-      rules: {
-        name: {
-          required: true,
-          minlength: 2
-        },
-        phone: "required",
   
-        email: {
-          required: true,
-          email: true
-        }
-      },
-  
-      messages: {
-        name: {
-          required: "Введите наше имя*",
-          minlength: jQuery.validator.format("Введите минимум {0} символа!")
-        },
-        
-        phone: "Введите ваш номер телефона*",
-        email: {
-          required: "Введите адрес электронной почты*",
-          email: "Ваш адрес электронной почты должен быть в формате name@domain.com"
-        }
-      }
-    });
+
+    
 
      
    
