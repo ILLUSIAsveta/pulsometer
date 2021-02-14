@@ -11,15 +11,16 @@
     top: 50%
     left: 50%
     transform: translate(-50%, -50%)
-    width: 400px
+    min-width: 250px
+    max-width: 400px
     min-height: 300px
     background-color: #F0F0F0
     padding: 40px 40px 40px 40px
     &__close
         cursor: pointer
         position: absolute
-        right: -30px
-        top: -10px
+        right: 12px
+        top: 0px
         color: #C70101
         font-size: 40px
         line-height: 40px
@@ -33,8 +34,7 @@
         font-weight: 500
         text-align: center    
         color: #232323
-    &_mini
-        min-height: 140px
+    
     .error
         border: 1px solid red
         font-size: 15px
@@ -43,7 +43,9 @@
         margin-bottom: 15px
         border: none
         text-align: center 
-
+.modal_mini
+    width: 90%
+    min-height: 20px
         
 #order, #consultation, #thanks
     display: none

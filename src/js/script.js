@@ -102,6 +102,9 @@ $(document).ready(function(){
   $('input[name=phone]').mask("+7 (999) 999-99-99");
 
   // Валидация форм на JS
+  $('form').on('submit', function(e){
+    e.preventDefault();
+});
   function validateForms (form) {
     $(form).validate({
       rules: {
@@ -125,8 +128,22 @@ $(document).ready(function(){
           required: "Пожалуйста, введите адрес почтового ящика*",
           email: "Адрес почтового ящика введен неверно"
         }
+      },
+      submitHandler: function(form) {
+       $.ajax({
+         type: "POST",
+         url: "mailer/smart.php",
+         data: $(this).serialize(),
+       }).done(function() {
+        $(this).find("input").val("");
+        $('#consultation, #order').fadeOut();
+        $('.overflay, #thanks').fadeIn();
+        $('form').trigger('reset');
+       })
+
       }
     });
+    return false;
   };
 
   validateForms('#order-form');
@@ -135,24 +152,6 @@ $(document).ready(function(){
 
 
 ///////////////////////// Отправка формы
-$('form').submit(function(e) {
-  e.preventDefault();
-  $.ajax({
-    type: "POST",
-    url: "mailer/smart.php",
-    data: $(this).serialize()
-  }).done(function() {
-    $(this).find("input").val("");
-    $('#consultation, #order').fadeOut();
-    $('.overflay, #thanks').fadeIn('slow');
-
-
-    $('form').trigger('reset');
-  });
-  return false;
-});
-
-
      ///// Scroll//////
   $(window).scroll(function(){
 
